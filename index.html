@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#090e19">
-  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#090e19" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
   <title>Shot Lab — Timing Trainer</title>
   <style>
     :root {
@@ -15,121 +14,704 @@
       color: #eef3ff;
       font-synthesis: none;
     }
+
     * { box-sizing: border-box; }
     [hidden] { display: none !important; }
+
     body {
       margin: 0;
       min-height: 100vh;
-      background: radial-gradient(circle at 85% -10%, #233558 0, transparent 42%), #090e19;
+      background:
+        radial-gradient(circle at 85% -10%, #233558 0, transparent 42%),
+        #090e19;
     }
+
     button, input, select { font: inherit; }
     button { cursor: pointer; }
-    button:focus-visible, input:focus-visible, select:focus-visible {
+
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible {
       outline: 2px solid #7a9cff;
       outline-offset: 3px;
     }
-    .app { max-width: 1160px; margin: auto; padding: 28px 18px 48px; }
-    .top { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-bottom: 28px; }
-    .brand { display: flex; align-items: center; gap: 13px; }
-    .logo { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 14px;
-      background: #f7a94f; color: #16161c; font-weight: 900; font-size: 25px; }
-    h1 { margin: 0; font-size: 24px; letter-spacing: -.7px; }
-    .subtitle { color: #8999b7; margin: 3px 0 0; font-size: 13px; }
-    .device-tag { color: #9fb3d6; background: #16233a; padding: 9px 12px; border-radius: 100px; font-size: 12px; }
-    .layout { display: grid; grid-template-columns: 345px minmax(0, 1fr); gap: 18px; align-items: start; }
-    .panel { border: 1px solid #29364d; border-radius: 20px; background: #101827; padding: 22px; }
-    .panel h2 { margin: 0 0 19px; font-size: 17px; }
-    .group { padding: 17px 0; border-top: 1px solid #283448; }
-    .group:first-of-type { border-top: 0; padding-top: 0; }
-    .label { display: block; color: #9cabca; font-size: 12px; font-weight: 650; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 11px; }
-    .shot-options, .choices { display: grid; gap: 9px; }
-    .shot-option, .choice, .secondary, .device-btn {
-      border: 1px solid #34435e; background: #172235; color: #d6e0f3;
-      border-radius: 11px; padding: 11px 12px; text-align: left;
+
+    .app {
+      max-width: 1180px;
+      margin: auto;
+      padding: 28px 18px 48px;
     }
-    .shot-option { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 13px; }
-    .shot-option strong { color: #a8b7d1; white-space: nowrap; }
-    .shot-option.active, .device-btn.active { border-color: #f7a94f; background: #332b28; color: #fff2df; }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 28px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .logo {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: #f7a94f;
+      color: #16161c;
+      font-weight: 900;
+      font-size: 25px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: -.7px;
+    }
+
+    .subtitle {
+      color: #8999b7;
+      margin: 3px 0 0;
+      font-size: 13px;
+    }
+
+    .device-tag {
+      color: #9fb3d6;
+      background: #16233a;
+      padding: 9px 12px;
+      border-radius: 100px;
+      font-size: 12px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 345px minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      border: 1px solid #29364d;
+      border-radius: 20px;
+      background: #101827;
+      padding: 22px;
+    }
+
+    .panel h2 {
+      margin: 0 0 19px;
+      font-size: 17px;
+    }
+
+    .group {
+      padding: 17px 0;
+      border-top: 1px solid #283448;
+    }
+
+    .group:first-of-type {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .label {
+      display: block;
+      color: #9cabca;
+      font-size: 12px;
+      font-weight: 650;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 11px;
+    }
+
+    .shot-options,
+    .choices {
+      display: grid;
+      gap: 9px;
+    }
+
+    .shot-option,
+    .choice,
+    .secondary,
+    .device-btn {
+      border: 1px solid #34435e;
+      background: #172235;
+      color: #d6e0f3;
+      border-radius: 11px;
+      padding: 11px 12px;
+      text-align: left;
+    }
+
+    .shot-option {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+    }
+
+    .shot-option strong {
+      color: #a8b7d1;
+      white-space: nowrap;
+    }
+
+    .shot-option.active,
+    .device-btn.active {
+      border-color: #f7a94f;
+      background: #332b28;
+      color: #fff2df;
+    }
+
     .shot-option.active strong { color: #f7b75d; }
-    .device-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .device-btn { text-align: center; font-size: 13px; }
-    .line { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    .hint { font-size: 12px; line-height: 1.5; color: #8292b0; margin: 9px 0 0; }
-    .select, .number {
-      width: 100%; border: 1px solid #384660; border-radius: 10px; background: #0c1423;
-      color: #f1f5ff; padding: 11px 12px;
+
+    .device-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
     }
-    .number { min-width: 0; }
-    .small-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .small-grid label { color: #a4b2cf; font-size: 12px; display: block; margin-bottom: 7px; }
-    .toggle { display: flex; align-items: center; gap: 9px; color: #dce6f8; font-size: 13px; }
-    .toggle input { accent-color: #f7a94f; width: 17px; height: 17px; }
-    .range { width: 100%; accent-color: #f7a94f; margin: 12px 0; }
-    .bind-row { display: flex; align-items: center; gap: 10px; margin-top: 11px; }
-    .bind-row span { font-size: 13px; color: #a8b8d0; }
-    .secondary { text-align: center; font-size: 12px; font-weight: 650; padding: 9px 12px; }
-    .secondary:hover, .shot-option:hover, .device-btn:hover { filter: brightness(1.18); }
-    .workout { min-width: 0; }
-    .hero-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    .eyebrow { color: #f6b667; font-size: 12px; letter-spacing: .09em; font-weight: 750; }
-    .status { background: #192c3a; color: #83dab2; padding: 7px 11px; border-radius: 99px; font-size: 12px; font-weight: 700; }
-    .status.waiting { background: #3a3023; color: #ffc77f; }
-    .status.late { background: #38252b; color: #ff8792; }
-    .target { text-align: center; padding: 37px 0 23px; }
-    .target-label { color: #94a3c1; font-size: 13px; margin-bottom: 5px; }
-    .target-number { font-size: clamp(55px, 10vw, 88px); font-weight: 850; letter-spacing: -5px; line-height: 1.15; font-variant-numeric: tabular-nums; }
-    .target-number small { font-size: 23px; letter-spacing: 0; color: #8e9db7; }
-    .target-sub { font-size: 13px; color: #b5c1d6; margin-top: 9px; }
-    .meter-space { margin: 15px 0 11px; min-height: 48px; }
-    .meter-track { height: 28px; background: #263349; border: 1px solid #4b5870; border-radius: 9px; overflow: hidden; position: relative; }
-    .meter-fill { height: 100%; width: 0; background: linear-gradient(90deg, #64d1bc, #72eb92); transition: none; }
-    .meter-fill.over { background: linear-gradient(90deg, #d48c5b, #f56b72); }
-    .meter-track::after { content: ""; position: absolute; top: 0; bottom: 0; right: 1px; width: 3px; background: #f2f7ff; }
-    .meter-space.concealed .meter-track { visibility: hidden; }
-    .meter-message { text-align: center; color: #8597b5; font-size: 12px; min-height: 18px; margin-top: 9px; }
+
+    .device-btn {
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .controller-status {
+      margin-top: 12px;
+      padding: 11px 12px;
+      border-radius: 10px;
+      background: #0c1423;
+      border: 1px solid #34435e;
+      color: #9fb0c9;
+      font-size: 12px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    .controller-status.connected {
+      color: #79dbb1;
+      border-color: #326c5b;
+    }
+
+    .controller-status.disconnected {
+      color: #e6bb81;
+    }
+
+    .line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .hint {
+      font-size: 12px;
+      line-height: 1.5;
+      color: #8292b0;
+      margin: 9px 0 0;
+    }
+
+    .select,
+    .number {
+      width: 100%;
+      border: 1px solid #384660;
+      border-radius: 10px;
+      background: #0c1423;
+      color: #f1f5ff;
+      padding: 11px 12px;
+    }
+
+    .small-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .small-grid label {
+      color: #a4b2cf;
+      font-size: 12px;
+      display: block;
+      margin-bottom: 7px;
+    }
+
+    .toggle {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: #dce6f8;
+      font-size: 13px;
+    }
+
+    .toggle input {
+      accent-color: #f7a94f;
+      width: 17px;
+      height: 17px;
+    }
+
+    .range {
+      width: 100%;
+      accent-color: #f7a94f;
+      margin: 12px 0;
+    }
+
+    .bind-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 11px;
+    }
+
+    .bind-row span {
+      font-size: 13px;
+      color: #a8b8d0;
+    }
+
+    .secondary {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 650;
+      padding: 9px 12px;
+    }
+
+    .secondary:hover,
+    .shot-option:hover,
+    .device-btn:hover {
+      filter: brightness(1.18);
+    }
+
+    .workout {
+      min-width: 0;
+    }
+
+    .hero-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .eyebrow {
+      color: #f6b667;
+      font-size: 12px;
+      letter-spacing: .09em;
+      font-weight: 750;
+    }
+
+    .status {
+      background: #192c3a;
+      color: #83dab2;
+      padding: 7px 11px;
+      border-radius: 99px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .status.waiting {
+      background: #3a3023;
+      color: #ffc77f;
+    }
+
+    .status.late {
+      background: #38252b;
+      color: #ff8792;
+    }
+
+    .target {
+      text-align: center;
+      padding: 10px 0 18px;
+    }
+
+    .target-label {
+      color: #94a3c1;
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+
+    .target-number {
+      font-size: clamp(52px, 9vw, 84px);
+      font-weight: 850;
+      letter-spacing: -4px;
+      line-height: 1.12;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .target-number small {
+      font-size: 23px;
+      letter-spacing: 0;
+      color: #8e9db7;
+    }
+
+    .target-sub {
+      font-size: 13px;
+      color: #b5c1d6;
+      margin-top: 9px;
+    }
+
+    .arena {
+      position: relative;
+      margin-top: 10px;
+      border: 1px solid #2f4058;
+      border-radius: 18px;
+      overflow: hidden;
+      min-height: 360px;
+      background:
+        radial-gradient(circle at 50% 18%, rgba(255,255,255,0.08), transparent 20%),
+        linear-gradient(180deg, #171c27 0%, #0e141d 46%, #0b0f17 100%);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+    }
+
+    .arena::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.03), transparent 18%),
+        radial-gradient(circle at 50% 100%, rgba(135, 38, 38, 0.20), transparent 35%);
+      pointer-events: none;
+    }
+
+    .arena-hoop {
+      position: absolute;
+      top: 40px;
+      left: 50%;
+      width: 90px;
+      height: 55px;
+      transform: translateX(-50%);
+      border: 4px solid #b9c4d7;
+      border-bottom-width: 6px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .arena-hoop::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -24px;
+      width: 34px;
+      height: 22px;
+      transform: translateX(-50%);
+      border: 3px solid #edf4ff;
+      border-top: 0;
+      border-radius: 0 0 12px 12px;
+      opacity: 0.95;
+    }
+
+    .arena-player {
+      position: absolute;
+      bottom: 64px;
+      left: 50%;
+      width: 74px;
+      height: 74px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 50% 36%, #b12c2c 0 24px, #7f1a1a 25px 31px, transparent 32px),
+        radial-gradient(circle at 50% 78%, #d44e4e 0 32px, #8d2323 33px 37px, transparent 38px),
+        radial-gradient(circle at 50% 50%, rgba(0,0,0,0.65), transparent 70%);
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,0.7));
+      opacity: 0.78;
+    }
+
+    .arena-feet {
+      position: absolute;
+      bottom: 18px;
+      left: 50%;
+      width: 130px;
+      height: 50px;
+      transform: translateX(-50%);
+      border-bottom: 18px solid rgba(231, 91, 107, 0.88);
+      border-left: 18px solid transparent;
+      border-right: 18px solid transparent;
+      border-radius: 0 0 90px 90px;
+      opacity: 0.9;
+      filter: blur(0.2px);
+    }
+
+    /* Minimal vertical shot tube: no green zone or indicator. */
+    .meter-wrapper {
+      position: absolute;
+      left: calc(50% - 78px);
+      bottom: 62px;
+      width: 34px;
+      height: 196px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .meter-shell {
+      position: relative;
+      width: 18px;
+      height: 184px;
+      border: 2px solid #d8dce4;
+      border-radius: 12px;
+      background: rgba(21, 27, 36, 0.9);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+    }
+
+    .meter-fill {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 0%;
+      background: #fafbff;
+      transition: none;
+    }
+
+    .meter-hidden {
+      visibility: hidden;
+    }
+
+    .arena-info {
+      position: absolute;
+      left: 18px;
+      bottom: 16px;
+      right: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 12px;
+      z-index: 5;
+    }
+
+    .arena-info-left {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      color: #d7e5f8;
+      font-size: 12px;
+    }
+
+    .arena-small-label {
+      color: #93a8c5;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .arena-shot-hint {
+      color: #7fe6a1;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .meter-message {
+      position: absolute;
+      top: 16px;
+      left: 18px;
+      right: 18px;
+      text-align: left;
+      color: #a5b5cf;
+      font-size: 12px;
+      min-height: 18px;
+      z-index: 5;
+    }
+
     .shoot-pad {
-      width: 100%; height: 178px; margin-top: 22px; border-radius: 18px;
-      border: 2px dashed #7182a6; background: linear-gradient(145deg, #1c2d48, #132035);
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9px;
-      color: #f2f6ff; user-select: none; -webkit-user-select: none; touch-action: none;
+      width: 100%;
+      height: 120px;
+      margin-top: 18px;
+      border-radius: 18px;
+      border: 2px dashed #7182a6;
+      background: linear-gradient(145deg, #1c2d48, #132035);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      color: #f2f6ff;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: none;
       -webkit-touch-callout: none;
     }
-    .shoot-pad span { font-size: 23px; font-weight: 800; }
-    .shoot-pad small { color: #a6b5d0; font-size: 12px; }
-    .shoot-pad.holding { border: 2px solid #f8b45f; background: #3b302a; }
-    .result { margin-top: 20px; border: 1px solid #30405a; border-radius: 13px; background: #0c1422; padding: 18px; text-align: center; }
-    .result-title { font-size: 21px; font-weight: 800; letter-spacing: .04em; }
-    .result-title.perfect { color: #6be4a6; }
-    .result-title.early { color: #ffc47f; }
-    .result-title.late { color: #fb8b93; }
-    .result-detail { margin-top: 6px; font-size: 12px; color: #a7b6d0; line-height: 1.6; }
-    .stats { margin-top: 18px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-    .stat { background: #0b1422; border: 1px solid #28374e; border-radius: 13px; padding: 14px 10px; }
-    .stat-value { font-size: 23px; font-weight: 800; font-variant-numeric: tabular-nums; }
-    .stat-label { color: #8c9cb7; font-size: 11px; margin-top: 4px; }
-    .history { margin-top: 20px; }
-    .history-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px; }
-    .history-head h3 { font-size: 14px; margin: 0; }
-    .history-list { display: grid; gap: 6px; }
-    .history-item { background: #0c1422; border: 1px solid #24334a; border-radius: 10px; padding: 9px 12px;
-      display: flex; justify-content: space-between; gap: 10px; font-size: 12px; color: #a6b6d3; }
+
+    .shoot-pad span {
+      font-size: 23px;
+      font-weight: 800;
+    }
+
+    .shoot-pad small {
+      color: #a6b5d0;
+      font-size: 12px;
+    }
+
+    .shoot-pad.holding {
+      border: 2px solid #f8b45f;
+      background: #3b302a;
+    }
+
+    /* The grade has its own space ABOVE the arena, never over the tube. */
+    .result {
+      margin: 12px 0 16px;
+      min-height: 101px;
+      border: 1px solid #30405a;
+      border-radius: 13px;
+      background: #0c1422;
+      padding: 14px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .result-title {
+      font-size: clamp(25px, 3.4vw, 39px);
+      font-weight: 850;
+      line-height: 1.15;
+      letter-spacing: .025em;
+    }
+
+    .result-title.perfect { --grade-color: #63f0a4; }
+    .result-title.good { --grade-color: #91cbff; }
+    .result-title.slightly-early, .result-title.slightly-late { --grade-color: #ffd17d; }
+    .result-title.early, .result-title.late { --grade-color: #ffa269; }
+    .result-title.very-early, .result-title.very-late { --grade-color: #ff777f; }
+    .result-title { color: var(--grade-color, #eef3ff); }
+
+    .result-detail {
+      margin-top: 6px;
+      font-size: 12px;
+      color: #a7b6d0;
+      line-height: 1.6;
+    }
+
+    .stats {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .stat {
+      background: #0b1422;
+      border: 1px solid #28374e;
+      border-radius: 13px;
+      padding: 14px 10px;
+    }
+
+    .stat-value {
+      font-size: 23px;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stat-label {
+      color: #8c9cb7;
+      font-size: 11px;
+      margin-top: 4px;
+    }
+
+    .history {
+      margin-top: 20px;
+    }
+
+    .history-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .history-head h3 {
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .history-list {
+      display: grid;
+      gap: 6px;
+    }
+
+    .history-item {
+      background: #0c1422;
+      border: 1px solid #24334a;
+      border-radius: 10px;
+      padding: 9px 12px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 12px;
+      color: #a6b6d3;
+    }
+
     .history-item b { color: #edf4ff; }
     .history-item .good { color: #6be4a6; }
-    .footnote { font-size: 11px; color: #7b8ca9; line-height: 1.6; padding-top: 14px; }
-    .overlay { position: fixed; inset: 0; z-index: 5; background: #040912d9; display: grid; place-items: center; padding: 18px; }
-    .modal { max-width: 420px; width: 100%; padding: 28px; border: 1px solid #41516e; border-radius: 20px; background: #131e30; box-shadow: 0 30px 100px #0009; }
-    .modal h2 { font-size: 25px; margin: 0 0 8px; }
-    .modal p { color: #aab9d0; font-size: 14px; line-height: 1.55; }
-    .modal .choices { grid-template-columns: 1fr 1fr; margin-top: 22px; }
-    .choice { text-align: center; padding: 21px 10px; font-weight: 700; }
+
+    .footnote {
+      font-size: 11px;
+      color: #7b8ca9;
+      line-height: 1.6;
+      padding-top: 14px;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      background: #040912d9;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+    }
+
+    .modal {
+      max-width: 420px;
+      width: 100%;
+      padding: 28px;
+      border: 1px solid #41516e;
+      border-radius: 20px;
+      background: #131e30;
+      box-shadow: 0 30px 100px #0009;
+    }
+
+    .modal h2 {
+      font-size: 25px;
+      margin: 0 0 8px;
+    }
+
+    .modal p {
+      color: #aab9d0;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .modal .choices {
+      grid-template-columns: 1fr 1fr;
+      margin-top: 22px;
+    }
+
+    .choice {
+      text-align: center;
+      padding: 21px 10px;
+      font-weight: 700;
+    }
+
     @media (max-width: 800px) {
       .layout { grid-template-columns: 1fr; }
       .workout { grid-row: 1; }
       .app { padding: 15px 12px 35px; }
       .panel { padding: 18px; }
-      .target { padding: 20px 0 12px; }
-      .shoot-pad { height: 190px; }
       .top { margin-bottom: 15px; }
+      .arena { min-height: 300px; }
+      .meter-wrapper {
+        left: calc(50% - 64px);
+        bottom: 52px;
+        transform: scale(0.92);
+        transform-origin: bottom center;
+      }
+      .target {
+        padding-top: 0;
+      }
     }
   </style>
 </head>
@@ -138,7 +720,10 @@
     <header class="top">
       <div class="brand">
         <div class="logo">◎</div>
-        <div><h1>Shot Lab</h1><p class="subtitle">Basketball timing trainer</p></div>
+        <div>
+          <h1>Shot Lab</h1>
+          <p class="subtitle">Basketball timing trainer</p>
+        </div>
       </div>
       <span class="device-tag" id="deviceTag">Choose device</span>
     </header>
@@ -146,6 +731,7 @@
     <main class="layout">
       <aside class="panel">
         <h2>Training settings</h2>
+
         <section class="group">
           <span class="label">Device</span>
           <div class="device-buttons">
@@ -153,6 +739,7 @@
             <button class="device-btn" type="button" data-device="mobile">iPhone / Touch</button>
           </div>
         </section>
+
         <section class="group">
           <span class="label">Shooting animation · Damian Douglas</span>
           <div class="shot-options">
@@ -161,18 +748,31 @@
             <button class="shot-option" type="button" data-shot="catch"><span>Catch & Shoot · Quickdraw HOF</span><strong>430 ms</strong></button>
           </div>
         </section>
+
         <section class="group" id="pcControls">
           <span class="label">PC shooting input</span>
           <select class="select" id="inputMethod">
             <option value="key">Keyboard key</option>
             <option value="mouse">Left mouse button</option>
+            <option value="controller">Controller (USB / Bluetooth)</option>
           </select>
+
           <div class="bind-row" id="bindRow">
             <button class="secondary" type="button" id="bindButton">Change key: E</button>
             <span>Press to rebind</span>
           </div>
-          <p class="hint">Keyboard: hold the selected key. Mouse: hold inside the training area.</p>
+
+          <div id="controllerControls" hidden>
+            <div class="controller-status disconnected" id="controllerStatus">Waiting for a controller…</div>
+            <div class="bind-row">
+              <button class="secondary" type="button" id="controllerBindButton">Change button: A / Cross</button>
+              <span id="controllerBindHint">Press to choose a button</span>
+            </div>
+            <p class="hint">Connect an Xbox, PlayStation, or compatible gamepad by USB/Bluetooth. Press a button to activate it in your browser.</p>
+          </div>
+          <p class="hint" id="pcInputHint">Keyboard: hold the selected key. Mouse: hold inside the training area.</p>
         </section>
+
         <section class="group">
           <label class="label" for="meterMode">Meter mode</label>
           <select class="select" id="meterMode">
@@ -180,54 +780,108 @@
             <option value="hidden">Hidden meter · muscle memory</option>
           </select>
         </section>
+
         <section class="group">
           <label class="toggle"><input id="delayEnabled" type="checkbox" checked> Random turning delays</label>
           <div id="delayControls">
-            <div class="line" style="margin-top: 16px"><span class="label" style="margin: 0">Chance of delay</span><strong id="chanceValue">50%</strong></div>
+            <div class="line" style="margin-top: 16px">
+              <span class="label" style="margin: 0">Chance of delay</span>
+              <strong id="chanceValue">50%</strong>
+            </div>
             <input class="range" type="range" min="0" max="100" step="5" value="50" id="delayChance">
+
             <div class="small-grid">
-              <div><label for="delayMin">Minimum (ms)</label><input class="number" type="number" id="delayMin" min="0" max="3000" value="120"></div>
-              <div><label for="delayMax">Maximum (ms)</label><input class="number" type="number" id="delayMax" min="0" max="3000" value="420"></div>
+              <div>
+                <label for="delayMin">Minimum (ms)</label>
+                <input class="number" type="number" id="delayMin" min="0" max="3000" value="50">
+              </div>
+              <div>
+                <label for="delayMax">Maximum (ms)</label>
+                <input class="number" type="number" id="delayMax" min="0" max="3000" value="100">
+              </div>
             </div>
           </div>
           <p class="hint">A delay happens before the meter starts filling. The target hold time includes that delay.</p>
         </section>
+
         <section class="group">
-          <label class="label" for="tolerance">Practice perfect window (± ms)</label>
-          <input class="number" type="number" id="tolerance" min="0" max="100" value="15">
-          <p class="hint">This is a training setting, not a confirmed green window from the game.</p>
+          <label class="label" for="tolerance">Good release window (± ms)</label>
+          <input class="number" type="number" id="tolerance" min="4" max="45" value="15">
+          <p class="hint">Perfect: within ±3 ms. Good: within the window above (default ±15 ms). Beyond that: slightly early/late, early/late, or very early/late. Practice thresholds, not verified in-game grades.</p>
         </section>
       </aside>
 
       <section class="panel workout">
-        <div class="hero-top"><span class="eyebrow" id="shotName">DAMIAN DOUGLAS · STANDING</span><span class="status" id="status">READY</span></div>
+        <div class="hero-top">
+          <span class="eyebrow" id="shotName">DAMIAN DOUGLAS · STANDING SHOT</span>
+          <span class="status" id="status">READY</span>
+        </div>
+
         <div class="target">
           <div class="target-label">Perfect release timing</div>
           <div class="target-number"><span id="targetMs">450</span> <small>ms</small></div>
           <div class="target-sub" id="targetInfo">Timing starts when the shot meter begins</div>
         </div>
-        <div class="meter-space" id="meterSpace">
-          <div class="meter-track"><div class="meter-fill" id="meterFill"></div></div>
-          <div class="meter-message" id="meterMessage">Hold to fill the bar to 100%</div>
-        </div>
-        <button class="shoot-pad" type="button" id="shootPad">
-          <span id="padTitle">Hold E to shoot</span>
-          <small id="padSubtitle">Release at the perfect moment</small>
-        </button>
+
         <div class="result" aria-live="polite">
           <div class="result-title" id="resultTitle">READY TO TRAIN</div>
           <div class="result-detail" id="resultDetail">Your timing feedback will appear here.</div>
         </div>
+
+        <div class="arena" id="arena">
+          <div class="meter-message" id="meterMessage">Hold to fill the shot meter</div>
+
+          <div class="arena-hoop"></div>
+          <div class="arena-player"></div>
+          <div class="arena-feet"></div>
+
+          <div class="meter-wrapper" id="meterWrapper">
+            <div class="meter-shell" id="meterShell">
+              <div class="meter-fill" id="meterFill"></div>
+            </div>
+          </div>
+
+          <div class="arena-info">
+            <div class="arena-info-left">
+              <span class="arena-small-label">Simulation</span>
+              <span class="arena-shot-hint" id="arenaShotHint">Standing Shot · 450 ms</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="shoot-pad" type="button" id="shootPad">
+          <span id="padTitle">Hold E to shoot</span>
+          <small id="padSubtitle">Release at the perfect moment</small>
+        </button>
+
         <div class="stats">
-          <div class="stat"><div class="stat-value" id="totalShots">0</div><div class="stat-label">Attempts</div></div>
-          <div class="stat"><div class="stat-value" id="perfectRate">—</div><div class="stat-label">Perfect rate</div></div>
-          <div class="stat"><div class="stat-value" id="avgError">—</div><div class="stat-label">Avg. absolute error</div></div>
+          <div class="stat">
+            <div class="stat-value" id="totalShots">0</div>
+            <div class="stat-label">Attempts</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" id="perfectRate">—</div>
+            <div class="stat-label">Perfect rate</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" id="avgError">—</div>
+            <div class="stat-label">Avg. absolute error</div>
+          </div>
         </div>
+
         <div class="history">
-          <div class="history-head"><h3>Recent attempts</h3><button class="secondary" type="button" id="resetButton">Reset stats</button></div>
-          <div class="history-list" id="historyList"><p class="hint">No attempts yet.</p></div>
+          <div class="history-head">
+            <h3>Recent attempts</h3>
+            <button class="secondary" type="button" id="resetButton">Reset stats</button>
+          </div>
+          <div class="history-list" id="historyList">
+            <p class="hint">No attempts yet.</p>
+          </div>
         </div>
-        <p class="footnote">The shot duration is measured with performance.now(). Display refresh rate, browser scheduling and input latency can affect the visual cue and recorded results.</p>
+
+        <p class="footnote">
+          The shot duration is measured with performance.now(). Display refresh rate, browser scheduling and input latency can affect the visual cue and recorded results.
+        </p>
       </section>
     </main>
   </div>
@@ -251,78 +905,236 @@
       standing: { name: "STANDING SHOT", ms: 450 },
       catch: { name: "CATCH & SHOOT · QUICKDRAW HOF", ms: 430 }
     };
+
+    const PERFECT_WINDOW_MS = 3;
+    const SLIGHT_MIN_WINDOW_MS = 45;
+    const VERY_MIN_WINDOW_MS = 100;
+
     const DEFAULTS = {
-      device: null, shot: "standing", input: "key", keyCode: "KeyE", keyName: "E",
-      meter: "visible", delays: true, chance: 50, min: 120, max: 420, tolerance: 15
+      device: null,
+      shot: "standing",
+      input: "key",
+      controllerButton: 0,
+      keyCode: "KeyE",
+      keyName: "E",
+      meter: "visible",
+      delays: true,
+      chance: 50,
+      min: 50,
+      max: 100,
+      tolerance: 15
     };
+
     const $ = id => document.getElementById(id);
     const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
 
     function loadSettings() {
-      try { return { ...DEFAULTS, ...JSON.parse(localStorage.getItem("shotlab-settings") || "{}") }; }
-      catch { return { ...DEFAULTS }; }
+      try {
+        const stored = JSON.parse(localStorage.getItem("shotlab-settings") || "{}");
+        // Upgrade the former defaults without overwriting custom delay ranges.
+        if (stored.min === 120 && stored.max === 420) {
+          stored.min = 50;
+          stored.max = 100;
+        }
+        return { ...DEFAULTS, ...stored };
+      } catch {
+        return { ...DEFAULTS };
+      }
     }
+
     let settings = loadSettings();
+
     if (!SHOTS[settings.shot]) settings.shot = "standing";
-    if (!['pc', 'mobile'].includes(settings.device)) settings.device = null;
-    if (!['key', 'mouse'].includes(settings.input)) settings.input = 'key';
-    if (!['visible', 'hidden'].includes(settings.meter)) settings.meter = 'visible';
+    if (!["pc", "mobile"].includes(settings.device)) settings.device = null;
+    if (!["key", "mouse", "controller"].includes(settings.input)) settings.input = "key";
+    if (!Number.isInteger(settings.controllerButton) || settings.controllerButton < 0) settings.controllerButton = 0;
+    if (!["visible", "hidden"].includes(settings.meter)) settings.meter = "visible";
+    settings.tolerance = clamp(Number(settings.tolerance) || 15, 4, 45);
+
     let active = null;
     let frame = null;
     let rebinding = false;
     let attempts = [];
+    let bindingController = false;
+    let connectedPadIndex = null;
+    let previousPadButtons = [];
+    let previousPadStatus = "";
+    const BUTTON_THRESHOLD = 0.5;
+
+    function getGamepadsSafe() {
+      if (typeof navigator.getGamepads !== "function") return [];
+      try { return Array.from(navigator.getGamepads()).filter(Boolean); }
+      catch { return []; }
+    }
+
+    function getSelectedGamepad() {
+      const pads = getGamepadsSafe();
+      return pads.find(p => p.index === connectedPadIndex) || pads[0] || null;
+    }
+
+    function buttonName(index, pad) {
+      const standard = pad && pad.mapping === "standard";
+      const names = ["A / Cross", "B / Circle", "X / Square", "Y / Triangle", "LB / L1", "RB / R1", "LT / L2", "RT / R2", "View / Share", "Menu / Options", "Left Stick", "Right Stick", "D-pad Up", "D-pad Down", "D-pad Left", "D-pad Right", "Home"];
+      return `Button ${index}${standard && names[index] ? ` (${names[index]})` : ""}`;
+    }
+
+    function renderControllerStatus() {
+      const pad = getSelectedGamepad();
+      let message;
+      if (typeof navigator.getGamepads !== "function") {
+        message = "Gamepad API unavailable in this browser. Try recent Chrome or Edge over HTTPS.";
+      } else if (!pad) {
+        message = "No controller detected. Connect via USB or Bluetooth, focus the page, then press any controller button.";
+      } else {
+        message = `Connected: ${pad.id} · ${buttonName(settings.controllerButton, pad)}`;
+      }
+      if (message !== previousPadStatus) {
+        $("controllerStatus").textContent = message;
+        $("controllerStatus").className = `controller-status ${pad ? "connected" : "disconnected"}`;
+        previousPadStatus = message;
+      }
+      $("controllerBindButton").textContent = bindingController
+        ? "Press a controller button…"
+        : `Change button: ${buttonName(settings.controllerButton, pad)}`;
+      $("controllerBindHint").textContent = bindingController ? "Waiting for input" : "Press to remap";
+    }
+
+    function pollController() {
+      const pad = getSelectedGamepad();
+      const newIndex = pad ? pad.index : null;
+      if (newIndex !== connectedPadIndex) {
+        if (active?.source === "controller") cancelAttempt();
+        connectedPadIndex = newIndex;
+        previousPadButtons = [];
+        previousPadStatus = "";
+      }
+      if (pad) {
+        const current = pad.buttons.map(b => Boolean(b.pressed || b.value > BUTTON_THRESHOLD));
+        if (bindingController && settings.device === "pc" && settings.input === "controller") {
+          const pressedIndex = current.findIndex((pressed, i) => pressed && !previousPadButtons[i]);
+          if (pressedIndex >= 0) {
+            settings.controllerButton = pressedIndex;
+            bindingController = false;
+            save();
+            previousPadStatus = "";
+            renderSettings();
+          }
+        } else if (settings.device === "pc" && settings.input === "controller" && !rebinding) {
+          const pressed = Boolean(current[settings.controllerButton]);
+          const wasPressed = Boolean(previousPadButtons[settings.controllerButton]);
+          if (pressed && !wasPressed) beginAttempt("controller");
+          else if (!pressed && wasPressed) finishAttempt("controller");
+        }
+        previousPadButtons = current;
+      }
+      if (settings.device === "pc" && settings.input === "controller") renderControllerStatus();
+      requestAnimationFrame(pollController);
+    }
 
     function save() {
-      try { localStorage.setItem("shotlab-settings", JSON.stringify(settings)); } catch {}
+      try {
+        localStorage.setItem("shotlab-settings", JSON.stringify(settings));
+      } catch {}
     }
-    function formatSigned(ms) { return `${ms > 0 ? "+" : ""}${Math.round(ms)} ms`; }
+
+    function formatSigned(ms) {
+      const n = Math.abs(ms) < 0.05 ? 0 : ms;
+      return `${n > 0 ? "+" : ""}${n.toFixed(1)} ms`;
+    }
+
+    function meterPercent(elapsed, target) {
+      // Fills to 100% at the target, then reverses down to 0%.
+      // After reaching 0% on the way down it stays empty, with no second perfect timing.
+      if (elapsed <= 0) return 0;
+      if (elapsed <= target) return 100 * elapsed / target;
+      return 100 * clamp(2 - elapsed / target, 0, 1);
+    }
+
+    function gradeShot(error, goodWindow) {
+      const distance = Math.abs(error);
+      const side = error < 0 ? "EARLY" : "LATE";
+      const slug = error < 0 ? "early" : "late";
+      if (distance <= PERFECT_WINDOW_MS) return { type: "perfect", title: "PERFECT RELEASE" };
+      if (distance <= goodWindow) return { type: "good", title: "GOOD RELEASE" };
+      if (distance <= Math.max(SLIGHT_MIN_WINDOW_MS, goodWindow + 20)) {
+        return { type: `slightly-${slug}`, title: `SLIGHTLY ${side}` };
+      }
+      if (distance <= Math.max(VERY_MIN_WINDOW_MS, goodWindow + 55)) {
+        return { type: slug, title: `${side} RELEASE` };
+      }
+      return { type: `very-${slug}`, title: `VERY ${side}` };
+    }
+
     function showResult(title, detail, type = "") {
       $("resultTitle").textContent = title;
       $("resultTitle").className = `result-title ${type}`;
       $("resultDetail").textContent = detail;
     }
+
     function showStatus(message, type = "") {
       $("status").textContent = message;
       $("status").className = `status ${type}`;
     }
+
     function renderSettings() {
       $("deviceTag").textContent = settings.device === "mobile" ? "TOUCH MODE" : "PC MODE";
       $("deviceModal").hidden = !!settings.device;
       $("pcControls").hidden = settings.device !== "pc";
+
       document.querySelectorAll("[data-device]").forEach(button => {
         button.classList.toggle("active", button.dataset.device === settings.device);
       });
+
       document.querySelectorAll("[data-shot]").forEach(button => {
         button.classList.toggle("active", button.dataset.shot === settings.shot);
       });
+
       $("shotName").textContent = `DAMIAN DOUGLAS · ${SHOTS[settings.shot].name}`;
       $("targetMs").textContent = SHOTS[settings.shot].ms;
       $("targetInfo").textContent = "Timing starts when the shot meter begins";
+      $("arenaShotHint").textContent = `${SHOTS[settings.shot].name} · ${SHOTS[settings.shot].ms} ms`;
+
       $("inputMethod").value = settings.input;
       $("bindRow").hidden = settings.input !== "key";
+      $("controllerControls").hidden = settings.input !== "controller";
+      $("pcInputHint").hidden = settings.input === "controller";
       $("bindButton").textContent = rebinding ? "Press any key…" : `Change key: ${settings.keyName}`;
+      if (settings.input === "controller") renderControllerStatus();
+
       $("meterMode").value = settings.meter;
+
       $("delayEnabled").checked = settings.delays;
       $("delayControls").style.opacity = settings.delays ? "1" : ".45";
       $("delayControls").querySelectorAll("input").forEach(i => i.disabled = !settings.delays);
+
       $("delayChance").value = settings.chance;
       $("chanceValue").textContent = `${settings.chance}%`;
+
       $("delayMin").value = settings.min;
       $("delayMax").value = settings.max;
       $("tolerance").value = settings.tolerance;
-      $("padTitle").textContent = settings.device === "mobile" ? "Touch & hold to shoot" :
-        settings.input === "mouse" ? "Click & hold to shoot" : `Hold ${settings.keyName} to shoot`;
+
+      $("padTitle").textContent = settings.device === "mobile"
+        ? "Touch & hold to shoot"
+        : settings.input === "mouse"
+          ? "Click & hold to shoot"
+          : settings.input === "controller"
+            ? `Hold ${buttonName(settings.controllerButton, getSelectedGamepad())} to shoot`
+            : `Hold ${settings.keyName} to shoot`;
+
       $("padSubtitle").textContent = "Release at the perfect moment";
       save();
     }
+
     function resetMeter() {
-      $("meterSpace").classList.toggle("concealed", settings.meter === "hidden");
-      $("meterFill").style.width = "0%";
-      $("meterFill").classList.remove("over");
+      $("meterWrapper").classList.toggle("meter-hidden", settings.meter === "hidden");
+      $("meterFill").style.height = "0%";
       $("meterMessage").textContent = settings.meter === "hidden"
-        ? "Meter hidden during practice" : "Hold to fill the bar to 100%";
+        ? "Meter hidden during practice"
+        : "Fill to the top; holding longer makes it go back down";
       showStatus("READY");
     }
+
     function cancelAttempt() {
       if (!active) return;
       active = null;
@@ -331,166 +1143,299 @@
       resetMeter();
       showResult("ATTEMPT CANCELED", "Try holding the shooting input again.");
     }
+
     function changeSetting(fn) {
       cancelAttempt();
       fn();
+      bindingController = false;
       renderSettings();
       resetMeter();
     }
+
     function selectDevice(device) {
-      changeSetting(() => { settings.device = device; rebinding = false; });
+      changeSetting(() => {
+        settings.device = device;
+        rebinding = false;
+      });
     }
 
     document.querySelectorAll("[data-device]").forEach(button => {
       button.addEventListener("click", () => selectDevice(button.dataset.device));
     });
+
     document.querySelectorAll("[data-shot]").forEach(button => {
-      button.addEventListener("click", () => changeSetting(() => { settings.shot = button.dataset.shot; }));
+      button.addEventListener("click", () => changeSetting(() => {
+        settings.shot = button.dataset.shot;
+      }));
     });
-    $("inputMethod").addEventListener("change", e => changeSetting(() => { settings.input = e.target.value; }));
-    $("meterMode").addEventListener("change", e => changeSetting(() => { settings.meter = e.target.value; }));
-    $("delayEnabled").addEventListener("change", e => changeSetting(() => { settings.delays = e.target.checked; }));
-    $("delayChance").addEventListener("input", e => { settings.chance = Number(e.target.value); $("chanceValue").textContent = `${settings.chance}%`; save(); });
+
+    $("inputMethod").addEventListener("change", e => changeSetting(() => {
+      settings.input = e.target.value;
+      rebinding = false;
+      // Don't start a shot if the new input was already being held.
+      const pad = getSelectedGamepad();
+      previousPadButtons = pad ? pad.buttons.map(b => Boolean(b.pressed || b.value > BUTTON_THRESHOLD)) : [];
+    }));
+
+    $("meterMode").addEventListener("change", e => changeSetting(() => {
+      settings.meter = e.target.value;
+    }));
+
+    $("delayEnabled").addEventListener("change", e => changeSetting(() => {
+      settings.delays = e.target.checked;
+    }));
+
+    $("delayChance").addEventListener("input", e => {
+      settings.chance = Number(e.target.value);
+      $("chanceValue").textContent = `${settings.chance}%`;
+      save();
+    });
+
     function readNumbers() {
       const min = clamp(Number($("delayMin").value) || 0, 0, 3000);
       const max = clamp(Number($("delayMax").value) || 0, min, 3000);
       settings.min = min;
       settings.max = max;
-      settings.tolerance = clamp(Number($("tolerance").value) || 0, 0, 100);
+      settings.tolerance = clamp(Number($("tolerance").value) || 15, 4, 45);
       renderSettings();
     }
-    ["delayMin", "delayMax", "tolerance"].forEach(id => $(id).addEventListener("change", readNumbers));
-    $("bindButton").addEventListener("click", () => { rebinding = true; renderSettings(); });
+
+    ["delayMin", "delayMax", "tolerance"].forEach(id => {
+      $(id).addEventListener("change", readNumbers);
+    });
+
+    $("bindButton").addEventListener("click", () => {
+      rebinding = true;
+      renderSettings();
+    });
+
+    $("controllerBindButton").addEventListener("click", () => {
+      cancelAttempt();
+      bindingController = true;
+      const pad = getSelectedGamepad();
+      previousPadButtons = pad ? pad.buttons.map(b => Boolean(b.pressed || b.value > BUTTON_THRESHOLD)) : [];
+      renderControllerStatus();
+    });
+
+    window.addEventListener("gamepadconnected", () => {
+      previousPadStatus = "";
+      renderControllerStatus();
+    });
+    window.addEventListener("gamepaddisconnected", () => {
+      previousPadStatus = "";
+    });
 
     function randomDelay() {
       if (!settings.delays || Math.random() * 100 >= settings.chance) return 0;
       return Math.round(settings.min + Math.random() * (settings.max - settings.min));
     }
+
     function beginAttempt(source, pointerId = null) {
       if (active || !settings.device) return;
+
       const start = performance.now();
+
       active = {
-        source, pointerId, start, delay: randomDelay(),
-        target: SHOTS[settings.shot].ms, shotName: SHOTS[settings.shot].name,
-        tolerance: settings.tolerance, meter: settings.meter
+        source,
+        pointerId,
+        start,
+        delay: randomDelay(),
+        target: SHOTS[settings.shot].ms,
+        shotName: SHOTS[settings.shot].name,
+        tolerance: settings.tolerance,
+        meter: settings.meter
       };
+
       $("shootPad").classList.add("holding");
       $("padSubtitle").textContent = "Keep holding…";
-      showResult("SHOT IN PROGRESS", "Release when you think the meter reaches 100%.");
-      $("meterFill").style.width = "0%";
-      $("meterFill").classList.remove("over");
+      showResult("SHOT IN PROGRESS", "Release when you think the tube is completely filled.");
+      $("meterFill").style.height = "0%";
+
       updateFrame();
     }
+
     function updateFrame() {
       if (!active) return;
+
       const shotElapsed = performance.now() - active.start - active.delay;
       const isTurning = shotElapsed < 0;
-      $("meterSpace").classList.toggle("concealed", isTurning || active.meter === "hidden");
-      $("meterFill").style.width = `${clamp(shotElapsed / active.target * 100, 0, 100)}%`;
-      $("meterFill").classList.toggle("over", shotElapsed > active.target + active.tolerance);
+      const progress = meterPercent(shotElapsed, active.target);
+
+      $("meterWrapper").classList.toggle("meter-hidden", isTurning || active.meter === "hidden");
+      $("meterFill").style.height = `${progress}%`;
+
       if (isTurning) {
         showStatus("TURNING", "waiting");
         $("meterMessage").textContent = "Turning towards the hoop…";
       } else if (shotElapsed > active.target + active.tolerance) {
         showStatus("OVER TARGET", "late");
-        $("meterMessage").textContent = active.meter === "hidden" ? "Shot started · meter hidden" : "Past the release point";
+        $("meterMessage").textContent = active.meter === "hidden"
+          ? "Shot started · meter hidden"
+          : "Past the target · tube is going down";
       } else {
         showStatus("SHOOTING");
-        $("meterMessage").textContent = active.meter === "hidden" ? "Shot started · meter hidden" : "Release when the bar reaches 100%";
+        $("meterMessage").textContent = active.meter === "hidden"
+          ? "Shot started · meter hidden"
+          : "Release when the tube is completely filled";
       }
+
       frame = requestAnimationFrame(updateFrame);
     }
+
     function finishAttempt(source, pointerId = null) {
-      if (!active || active.source !== source || (source === "pointer" && active.pointerId !== pointerId)) return;
+      if (!active || active.source !== source || (source === "pointer" && active.pointerId !== pointerId)) {
+        return;
+      }
+
       const end = performance.now();
       const a = active;
       active = null;
+
       cancelAnimationFrame(frame);
       $("shootPad").classList.remove("holding");
+
       const held = end - a.start;
       const error = held - a.delay - a.target;
-      const type = Math.abs(error) <= a.tolerance ? "perfect" : error < 0 ? "early" : "late";
-      const title = type === "perfect" ? "PERFECT RELEASE" : type === "early" ? "TOO EARLY" : "TOO LATE";
-      showResult(title, `${formatSigned(error)} from target · held ${Math.round(held)} ms · turning delay ${a.delay} ms`, type);
-      showStatus(type.toUpperCase(), type === "late" ? "late" : type === "early" ? "waiting" : "");
-      $("meterSpace").classList.remove("concealed");
-      $("meterFill").style.width = `${clamp((held - a.delay) / a.target * 100, 0, 100)}%`;
-      $("meterFill").classList.toggle("over", type === "late");
+
+      const grade = gradeShot(error, a.tolerance);
+
+      showResult(
+        grade.title,
+        `${formatSigned(error)} from target · held ${Math.round(held)} ms · turning delay ${a.delay} ms`,
+        grade.type
+      );
+      showStatus(grade.title, error > a.tolerance ? "late" : error < -a.tolerance ? "waiting" : "");
+
+      $("meterWrapper").classList.toggle("meter-hidden", a.meter === "hidden");
+      $("meterFill").style.height = `${meterPercent(held - a.delay, a.target)}%`;
       $("meterMessage").textContent = `${a.shotName} · ${a.target} ms target`;
       $("padSubtitle").textContent = "Release at the perfect moment";
-      attempts.push({ error, type, name: a.shotName });
+
+      attempts.push({
+        error,
+        type: grade.type,
+        name: a.shotName
+      });
+
       renderStats();
     }
+
     function renderStats() {
       const n = attempts.length;
       const perfect = attempts.filter(a => a.type === "perfect").length;
       const average = n ? attempts.reduce((sum, a) => sum + Math.abs(a.error), 0) / n : 0;
+
       $("totalShots").textContent = n;
-      $("perfectRate").textContent = n ? `${Math.round(perfect / n * 100)}%` : "—";
+      $("perfectRate").textContent = n ? `${Math.round((perfect / n) * 100)}%` : "—";
       $("avgError").textContent = n ? `${Math.round(average)} ms` : "—";
+
       $("historyList").replaceChildren();
+
       if (!n) {
-        const p = document.createElement("p"); p.className = "hint"; p.textContent = "No attempts yet.";
+        const p = document.createElement("p");
+        p.className = "hint";
+        p.textContent = "No attempts yet.";
         $("historyList").append(p);
         return;
       }
+
       attempts.slice(-6).reverse().forEach(a => {
-        const row = document.createElement("div"); row.className = "history-item";
-        const name = document.createElement("span"); name.textContent = a.name;
-        const error = document.createElement("b"); error.textContent = formatSigned(a.error);
-        if (a.type === "perfect") error.className = "good";
+        const row = document.createElement("div");
+        row.className = "history-item";
+
+        const name = document.createElement("span");
+        name.textContent = a.name;
+
+        const error = document.createElement("b");
+        error.textContent = formatSigned(a.error);
+
+        if (a.type === "perfect" || a.type === "good") {
+          error.className = "good";
+        }
+
         row.append(name, error);
         $("historyList").append(row);
       });
     }
-    $("resetButton").addEventListener("click", () => { attempts = []; renderStats(); });
+
+    $("resetButton").addEventListener("click", () => {
+      attempts = [];
+      renderStats();
+    });
 
     const pad = $("shootPad");
+
     pad.addEventListener("pointerdown", e => {
       if (e.button !== 0 || (settings.device === "pc" && settings.input !== "mouse")) return;
       e.preventDefault();
       try { pad.setPointerCapture(e.pointerId); } catch {}
       beginAttempt("pointer", e.pointerId);
     });
+
     pad.addEventListener("pointerup", e => finishAttempt("pointer", e.pointerId));
     pad.addEventListener("pointercancel", cancelAttempt);
+
     pad.addEventListener("lostpointercapture", () => {
       if (active?.source === "pointer") cancelAttempt();
     });
+
     pad.addEventListener("contextmenu", e => e.preventDefault());
 
     document.addEventListener("keydown", e => {
       if (rebinding) {
         e.preventDefault();
-        if (e.code === "Escape") { rebinding = false; renderSettings(); return; }
+
+        if (e.code === "Escape") {
+          rebinding = false;
+          renderSettings();
+          return;
+        }
+
         if (["Shift", "Control", "Alt", "Meta"].includes(e.key) || e.repeat) return;
+
         changeSetting(() => {
           settings.keyCode = e.code;
           settings.keyName = e.key === " " ? "Space" : e.key.length === 1 ? e.key.toUpperCase() : e.key;
           rebinding = false;
         });
+
         return;
       }
+
       const element = e.target;
-      const editable = element instanceof HTMLElement &&
-        (element.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(element.tagName));
-      if (settings.device === "pc" && settings.input === "key" && e.code === settings.keyCode && !editable) {
+      const editable =
+        element instanceof HTMLElement &&
+        (element.isContentEditable ||
+         element.tagName === "TEXTAREA" || element.tagName === "SELECT" ||
+         (element.tagName === "INPUT" && !["checkbox", "range", "button"].includes(element.type)));
+
+      if (
+        settings.device === "pc" &&
+        settings.input === "key" &&
+        e.code === settings.keyCode &&
+        !editable
+      ) {
         e.preventDefault();
         if (!e.repeat) beginAttempt("key");
       }
     });
+
     document.addEventListener("keyup", e => {
       if (active?.source === "key" && e.code === settings.keyCode) {
         e.preventDefault();
         finishAttempt("key");
       }
     });
+
     window.addEventListener("blur", cancelAttempt);
-    document.addEventListener("visibilitychange", () => { if (document.hidden) cancelAttempt(); });
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) cancelAttempt();
+    });
 
     renderSettings();
     resetMeter();
     renderStats();
+    requestAnimationFrame(pollController);
   </script>
 </body>
 </html>
